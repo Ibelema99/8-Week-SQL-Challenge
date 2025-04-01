@@ -1,8 +1,8 @@
 create schema dannys_diner;
 create table sales (
 	customer_id varchar(1),
-    order_date date, 
-    product_id int);
+    	order_date date, 
+    	product_id int);
     
 insert into sales(customer_id, order_date, product_id)
 values 
@@ -24,8 +24,8 @@ values
 
 create table menu (
 	product_id int, 
-    product_name varchar (20), 
-    price int);
+    	product_name varchar (20), 
+    	price int);
 
 insert into menu(product_id, product_name, price)
 values 
@@ -34,15 +34,12 @@ values
 	('3', 'ramen', '12');
     
 create table members(
-customer_id varchar(1), 
-join_date date);
+	customer_id varchar(1), 
+	join_date date);
 
 insert into members(customer_id, join_date)
 values 
   ('A', '2021-01-07'),
   ('B', '2021-01-09');
-    
- 
-select * from sales;
-select * from menu;
-select * from members;  
+
+-- Data Cleaning was not necessary as there were no data type changes needed and no null values to remove 
