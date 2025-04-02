@@ -5,7 +5,7 @@ All information about this case study can be found [here](https://8weeksqlchalle
 
 
 To jump straight to my solutions, follow the links below.
-1. Danny's Diner Solution SQL File
+1. [Danny's Diner Solution SQL File](https://github.com/Ibelema99/8-Week-SQL-Challenge/blob/ef8ce4575278ff9c9c28513835fbe8151219d273/Case%20Study%201%20-%20Danny's%20Diner/Danny's%20Diner%20Schema.sql)
 2. Data Schema and Data cleaning
 3. Danny's Diner Solutions with answers 
 
