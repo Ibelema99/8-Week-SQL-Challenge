@@ -4,9 +4,9 @@ All information about this case study can be found [here](https://8weeksqlchalle
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width=30% height=30%>
 
 
-To jump straight to my solutions, follow the links below.
-1. [Danny's Diner Solution SQL File](https://github.com/Ibelema99/8-Week-SQL-Challenge/blob/ef8ce4575278ff9c9c28513835fbe8151219d273/Case%20Study%201%20-%20Danny's%20Diner/Danny's%20Diner%20Schema.sql)
-2. Data Schema and Data cleaning
+Please follow the links below if you want to jump straight to my solutions.
+1. [Danny's Diner Solution SQL File](https://github.com/Ibelema99/8-Week-SQL-Challenge/blob/ef45a7106ce4596b3e3f42f063cb319d0519518b/Case%20Study%201%20-%20Danny's%20Diner/Danny's%20Diner.sql)
+2. [Data Schema and Data cleaning](https://github.com/Ibelema99/8-Week-SQL-Challenge/blob/ef8ce4575278ff9c9c28513835fbe8151219d273/Case%20Study%201%20-%20Danny's%20Diner/Danny's%20Diner%20Schema.sql)
 3. Danny's Diner Solutions with answers 
 
 ## Table of Contents
