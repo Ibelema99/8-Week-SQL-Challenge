@@ -1,5 +1,7 @@
 ## Danny's Diner Case Study Solutions & Outputs  🍣🍛🍜
 
+1. [What is the total amount each customer spent at the restaurant?](#1.-what-is-the-total-amount-each-customer-spent-at-the-restaurant?)
+
 ### Questions 🍣🍛🍜  
 <details>
 
