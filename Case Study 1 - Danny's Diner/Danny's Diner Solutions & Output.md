@@ -1,13 +1,11 @@
 ## Danny's Diner Case Study Solutions & Outputs  🍣🍛🍜
 
-1. [What is the total amount each customer spent at the restaurant?](#1.-what-is-the-total-amount-each-customer-spent-at-the-restaurant?)
-
 ### Questions 🍣🍛🍜  
 <details>
 
 <summary>Please click on the questions in the toggle to go straight to the related solution and output </summary>
 
-1. [What is the total amount each customer spent at the restaurant?](#1.-what-is-the-total-amount-each-customer-spent-at-the-restaurant?)
+1. [What is the total amount each customer spent at the restaurant?](#what-is-the-total-amount-each-customer-spent-at-the-restaurant?)
 
 2. How many days has each customer visited the restaurant?
 3. What was the first item from the menu purchased by each customer?
