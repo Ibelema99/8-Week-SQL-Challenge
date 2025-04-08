@@ -7,7 +7,7 @@ values (1, '2021-01-01'),
 		(2, '2021-01-03'), 
         (3,	'2021-01-08'),
         (4, '2021-01-15');
-        
+
 
 -- create table 2: customer_orders table;
 create table customer_orders (order_id int, customer_id int, pizza_id int, 
@@ -27,6 +27,7 @@ values ('1', '101', '1', '', '', '2020-01-01 18:05:02'),
 	  ('9', '103', '1', '4', '1, 5', '2020-01-10 11:22:59'),
 	  ('10', '104', '1', 'null', 'null', '2020-01-11 18:34:49'),
 	  ('10', '104', '1', '2, 6', '1, 4', '2020-01-11 18:34:49');
+select * from customer_orders;
 
 -- create table 3: runner_orders table;
 create table runner_orders (order_id INT, runner_id INT, pickup_time VARCHAR(19),
@@ -43,12 +44,12 @@ values ('1', '1', '2020-01-01 18:15:34', '20km', '32 minutes', ''),
 	  ('9', '2', 'null', 'null', 'null', 'Customer Cancellation'),
 	  ('10', '1', '2020-01-11 18:50:20', '10km', '10minutes', 'null');
         
-
 -- create table 4: pizza_names table;
 create table pizza_names (pizza_id int, pizza_name varchar(20));
 insert into pizza_names(pizza_id, pizza_name)
 values (1, 'Meat Lovers'),
 		(2,	'Vegetarian');
+select * from pizza_names;
 
 
 -- create table 5: pizza_recipes table;
@@ -73,8 +74,9 @@ values (1, 'Bacon'),
 		(11, 'Tomatoes'),
 		(12, 'Tomato Sauce');
 
+
 -- Cleaning the data
--- 1. make all empty and null values in the customer_orders table null 
+-- 1. make all empty and null values null from customer_orders
 create table temp_customer_orders as select order_id, customer_id, pizza_id,
 case when exclusions = '' or exclusions like 'null' then null else exclusions end as exclusions, 
 case when extras = '' or extras like 'null' then null else extras end as extras, ordertime
@@ -100,9 +102,39 @@ alter table temp_runner_orders
 modify column pickup_time datetime,
 modify column distance float,
 modify column duration int;
-
-
-
-select * from temp_customer_orders;
-select * from temp_runner_orders;
  
+-- 4. split the toppings column in pizza recipes
+create table temp_pizza_recipes as
+WITH RECURSIVE SplitValues AS (
+    SELECT
+        pizza_id,
+        SUBSTRING_INDEX(toppings, ',', 1) AS split_toppings,
+        IF(LOCATE(',', toppings) > 0, SUBSTRING(toppings, LOCATE(',', toppings) + 1), NULL) AS remaining_values
+    FROM pizza_recipes
+    UNION ALL
+    SELECT
+        pizza_id,
+        SUBSTRING_INDEX(remaining_values,',', 1) AS split_toppings,
+        IF(LOCATE(',', remaining_values) > 0, SUBSTRING(remaining_values, LOCATE(',',remaining_values) + 1), NULL)
+    FROM
+        SplitValues
+    WHERE
+        remaining_values IS NOT NULL
+)
+SELECT
+    pizza_id,
+    split_toppings
+FROM
+    SplitValues order by pizza_id;
+
+-- 5.  In the temp_customer_orders table, split the extras and exclusions columns to split the comma-separated values into 2
+create table extras_and_exclusions as 
+select order_id, customer_id, pizza_id, extras, SUBSTRING_INDEX(`extras`, ', ', 1) AS `extra1`,
+	if(char_length(extras) - char_length(replace(extras, ' ', ''))=1, 
+    SUBSTRING_INDEX(`extras`, ', ', -1), null) AS `extra2`, 
+    
+    exclusions, SUBSTRING_INDEX(`exclusions`, ', ', 1) AS `exclusion1`,
+	if(char_length(exclusions) - char_length(replace(exclusions, ' ', ''))=1, 
+    SUBSTRING_INDEX(`exclusions`, ', ', -1), null) AS `exclusion2`, 
+    ordertime
+from temp_customer_orders;
