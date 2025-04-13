@@ -14,7 +14,7 @@ where cancellation is null
 group by runner_id;
 
 -- 4. How many of each type of pizza was delivered?
--- remember 2 were cancelled so we need to join temp_runner_orders
+-- Remember 2 were cancelled, so we need to join temp_runner_orders
 -- to get the actual names, we will join temp_customer_orders with pizza_names
 select c.pizza_id, pizza_name, count(c.pizza_id) as number_of_pizzas from temp_customer_orders as c
 inner join pizza_names as p on c.pizza_id=p.pizza_id
