@@ -63,14 +63,3 @@ order by hour_of_day;
 select dayname (ordertime) as day_of_week, count(order_id) as pizza_volume
 from temp_customer_orders
 group by day_of_week;
-
-
-
-
-select * from temp_customer_orders;
-select * from runners;
-select * from temp_runner_orders; 
-select * from pizza_names;
-select * from pizza_recipes;
-select * from pizza_toppings;
-
