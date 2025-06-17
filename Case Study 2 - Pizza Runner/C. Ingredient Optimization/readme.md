@@ -23,39 +23,48 @@
 ### Solutions 
 
 #### 1. What are the standard ingredients for each pizza?
+-- For this question, we will be using the already cleaned temp_pizza_recipes table.
+
 ```sql
-with signup_per_wk as(
-	select runner_id, registration_date, 
-		registration_date-((registration_date - DATE('2021-01-01')) % 7) as onewk
-from runners)
-select onewk, count(runner_id) as numberofrunners
-from signup_per_wk
-group by onewk;
+select pn.pizza_id, pizza_name, GROUP_CONCAT(pt.topping_name ORDER BY pt.topping_name 
+	SEPARATOR ', ') AS standard_toppings
+from temp_pizza_recipes as pr
+join pizza_names as pn on pr.pizza_id= pn.pizza_id
+join pizza_toppings as pt on pr.split_toppings=pt.topping_id
+group by pizza_name, pizza_id;
 ```
 Result: 
 
-![image](https://github.com/user-attachments/assets/ed20c206-8183-4342-8414-5b68b920bd18)
+![image](https://github.com/user-attachments/assets/22d5f354-86cd-4d84-894a-90afdfe05a78)
 
-- Two runners registered in the first week, followed by one runner in the second week and another in the third week.
-  
+- The standard ingredients for the Meat Lovers Pizza are: Bacon, BBQ Sauce, Beef, Cheese, Chicken, Mushrooms, Pepperoni, and Salami.
+- For the Vegetarian Pizza, the ingredients include: Cheese, Mushrooms, Onions, Peppers, Tomato Sauce, and Tomatoes.
+
 #### 2. What was the most commonly added extra?
 
 ```sql
-with arrival_time as 
-(select runner_id, timestampdiff(minute, ordertime, pickup_time) as arrive_minutes
-from temp_customer_orders as c 
-inner join temp_runner_orders as r on c.order_id=r.order_id
-where pickup_time is not null)
+With CTE as 
+(SELECT extra1 as common_extras, count(extra1) AS result
+FROM extras_and_exclusions
+where extras is not null 
+group by extra1
 
-select runner_id, avg(arrive_minutes) from arrival_time 
-group by runner_id;
+UNION DISTINCT
 
+SELECT extra2, count(extra2) as result
+FROM extras_and_exclusions
+where extra2 is not null
+group by extra2 
+order by result desc)
+select common_extras, result, topping_name
+from cte as c 
+join pizza_toppings as pt on c.common_extras=pt.topping_id;
 ```
 Result: 
 
-![image](https://github.com/user-attachments/assets/75b57e93-354b-42ac-bd9e-60a8fb950726)
+![image](https://github.com/user-attachments/assets/dada893a-2c6c-444c-a905-a7c60850923c)
 
-- Runner 1 took an average of 15.33 minutes to arrive at Runner HQ for pickup, while Runner 2 averaged 23.4 minutes and Runner 3 averaged 10 minutes.
+- The most common extra was Bacon
 
 #### 3. What was the most common exclusion?
 ```sql
