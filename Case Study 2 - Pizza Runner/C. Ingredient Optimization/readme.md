@@ -6,7 +6,7 @@
 
 <summary>Please click on the questions in the toggle to go straight to the related solution and output </summary>
 
-1. What are the standard ingredients for each pizza?
+1. What are the standard ingredients for each pizza?(#1-what-are-the-standard-ingredients-for-each-pizza)
 2. What was the most commonly added extra?
 3. What was the most common exclusion?
 4. Generate an order item for each record in the `customers_orders` table in the format of one of the following:
